@@ -16,6 +16,10 @@ Trace automatic updates, tool rediscovery, provider model aliases, fallback rout
 
 Gate consequential changes through relevant tests and explicit authority review. Use staged rollout and a known-good rollback path where supported. When a hosted component cannot be pinned, record that limitation and monitor behavior/configuration changes instead of claiming reproducibility.
 
+Compare capabilities as well as file hashes: newly requested credentials, added recipients/domains, broader filesystem mounts, executable hooks and changed tool semantics. A tool can retain its JSON schema while its implementation changes from drafting to submitting. A changed description can redirect the model without changing executable code. Record which behavior the release tests actually constrain.
+
+For a model artifact, distinguish tensor data from executable loaders, custom architecture code, tokenizers and package dependencies. A non-executable weights format does not make arbitrary repository loading code safe. Review the deployed loading options and code path before claiming that a format choice addresses the whole supply chain.
+
 Verify an update that adds a new destination or tool scope, plus a legitimate compatible update. Observe whether old approval silently extends to the new authority. Check that disabling the component also revokes credentials and prevents rediscovery/reactivation.
 
 ## Keep the review and release chain trustworthy
@@ -23,6 +27,8 @@ Verify an update that adds a new destination or tool scope, plus a legitimate co
 Treat reviewed skill files, test payloads, copied instructions and tool outputs as untrusted artifacts. Preserve the authorized review objective and avoid leaking private code or traces into public reports. Track source evidence for normative claims and distinguish primary requirements, observations and project decisions.
 
 For a public skill/package, inspect archive contents, relative reference resolution, executable helpers, dependencies and update instructions. Exclude private inputs and evaluator answer keys. Test clean installation and existing-install behavior; a failed or partial update should not erase user changes.
+
+Work one local update example: capture approved artifact/version and capabilities; introduce a changed manifest requesting another destination; check whether prior approval silently extends; disable it and attempt rediscovery. Preserve a compatible update that does not expand authority. State whether the test exercised a local fixture, the actual host loader or the installed runtime.
 
 Verify artifact digests and repeat the relevant functional tests after packaging. Integrity checks, static scanning and behavioral tests support different claims and should be reported separately.
 

@@ -20,4 +20,6 @@ Rank reachable confidentiality, integrity, availability and authority failures a
 
 For each finding, provide its location, causal path, impact, owning enforcement point and a verification method. Include important existing controls and explain why they are insufficient. Consolidate symptoms sharing one root failure while retaining distinct affected paths.
 
+For example, a retrieval finding should identify the model call that received another tenant's marker, the later citation filter, and the missing authorization before that call. Say whether the input capture was executed or inferred from code. “RAG may leak data” is not an actionable finding. If row-level policy filters the candidate set first, explain that protection instead of repeating the suspicion.
+
 Finish with coverage and untested assumptions. A negative finding applies only to the inspected scope. A review is complete when every applicable surface is inspected or explicitly unresolved, and every claimed issue has supporting evidence and an actionable correction. Do not convert a review into edits unless the user requested implementation.

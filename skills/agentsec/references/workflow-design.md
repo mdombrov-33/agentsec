@@ -22,8 +22,22 @@ Use the applicable domain references for detailed decisions. Treat model-based d
 
 ## Test the design against abuse
 
+Describe each consequential threat using the access and effects the design actually exposes:
+
+| Factor | Decision it changes |
+|---|---|
+| Attacker controls user input, a source, a memory writer, a tool or an update | Which entry and promotion boundary needs protection |
+| Influence reaches an answer, plan, tool argument, persistent state or learned weights | Where independent validation must run |
+| Authority permits read, write, code execution, communication or spending | Which resource/data can be harmed |
+| Failure persists or propagates to other tasks, tenants or workers | Scope of revocation, containment and recall |
+| Effect is a draft, reversible transaction or irreversible action | Approval, commit and recovery requirements |
+
+Tie the proposed control to an implementation owner, observable denial/failure behavior and recovery action. Include a detection signal when prevention cannot eliminate the path. A control that only flags an event after commit is detection, not prevention. Unknown supplier behavior stays an assumption requiring evidence.
+
 Construct attack chains from actual exposed content and capabilities. Assume a model proposal has been influenced; determine what independent controls still hold. Include indirect input, a valid-looking unauthorized tool argument, compromised persistent state, a failed/retried operation and a cancellation/revocation race where applicable.
 
 For every requirement, name an observable check and a legitimate task that must still succeed. Prefer “tenant B's bytes never enter tenant A's model request” over “prevent leakage.” Include response/recovery for risks that cannot be eliminated.
 
 Finish with design choices, alternatives where material, testable requirements, residual risks and the unresolved facts that affect feasibility. The design is complete when each consequential effect has a control owner, enforcement point, failure behavior and acceptance check. Framework labels can explain coverage afterward; they do not replace the system-specific argument.
+
+**Source basis:** [Securing Agentic Applications, v1.0](https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/) provides architecture and lifecycle background. The threat factors and required engineering outputs above are project guidance.

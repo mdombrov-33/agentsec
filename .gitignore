@@ -7,7 +7,6 @@ dist/
 .DS_Store
 .env
 .env.*
-evals/local-results/
 .agents/
 .claude/
 skills-lock.json

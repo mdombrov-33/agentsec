@@ -1,66 +1,53 @@
-# AI Security
+# agentsec
 
-**Review and harden LLM apps, RAG pipelines and tool-using agents with your coding agent.**
+A coding-agent skill for reviewing and hardening LLM applications, RAG pipelines and tool-using agents.
 
-An installable skill that follows untrusted input through your application: what reaches the model, what tools it can call, what survives in memory, and what its output can do. It directs the agent to inspect the code, trace reachable failures, and propose fixes with tests.
+It traces untrusted input through retrieval, model calls, tools and stored state. Reviews identify the failing check, the reachable consequence and where to enforce the fix, with code locations and verification steps.
 
 ## Install
 
-Run this from the project you want to work on:
+Run from the project you want to review:
 
 ```sh
-npx skills@latest add mdombrov-33/ai-security-skill
+npx skills add mdombrov-33/agentsec
 ```
 
-Choose your agent and **project** installation in the terminal. Requires Node.js 22.20+. No repository clone or separate `npm install` needed.
+Select your coding agent and choose project or global installation.
 
-Then ask:
+## Use
+
+In Codex:
 
 ```text
-Use ai-security to review this project for AI security issues.
+$agentsec Review this repository for AI security issues.
 ```
 
-In Codex, you can also invoke it explicitly with `$ai-security`.
+Or ask your agent to use `agentsec`. Use it for a code review, threat model, security fix, adversarial test or incident investigation. You can narrow the request to a component, diff or specific failure.
 
-## What you can ask it to do
+## Coverage
 
-| Task | Example request | Expected output |
-|---|---|---|
-| **Review** | “Review this RAG service for cross-tenant data leaks.” | Findings with code locations, attack paths, impact and verification steps. |
-| **Design** | “Threat-model an assistant that can issue refunds.” | Data and permission flows, enforcement points and acceptance tests. |
-| **Fix** | “Fix this memory-poisoning issue and test the change.” | A scoped implementation, a regression test and a check that legitimate behavior still works. |
-| **Test** | “Build adversarial tests for this MCP integration.” | Cases with attacker capabilities, observable failures and benign controls. |
-
-Use it on an existing repository, a proposed architecture, a focused change or an incident trace. A narrow request follows the affected path; a broad review checks each applicable surface.
-
-## What it looks for
-
-| Surface | Questions the skill directs the agent to investigate |
+| Reference | Checks |
 |---|---|
-| **Prompt injection** | Can documents, tool results or other untrusted content redirect the task? What consequences can follow? |
-| **RAG and private data** | Are permissions checked before data reaches the model, including through caches, rerankers and fallbacks? |
-| **Memory and summaries** | Can untrusted content become policy? Do tenant boundaries and source revocation survive repeated summarization? |
-| **Tools and approvals** | Is the exact action authorized for this user and resource? Can arguments change after approval? |
-| **MCP** | Are tokens bound to the intended audience, sessions isolated and tool descriptions treated as untrusted? |
-| **Code and output** | Can generated commands, HTML, URLs or file paths escape their intended boundaries? |
-| **Supply chain** | Can a changed package, model, skill or tool manifest introduce new authority or executable behavior? |
-| **Runtime and recovery** | Do budgets cover retries and delegated work? Can cancellation stop a pending action and recovery clear poisoned state? |
+| [Prompt injection](skills/agentsec/references/context-and-injection.md) | Untrusted instructions, context transformations and guard placement |
+| [Retrieval and data](skills/agentsec/references/retrieval-and-data.md) | Tenant/document access, caches, rerankers, fallbacks and disclosure destinations |
+| [Memory and compaction](skills/agentsec/references/memory-and-compaction.md) | Write authority, summary dependencies, revocation and later reuse |
+| [Identity and tools](skills/agentsec/references/identity-and-tools.md) | Resource authorization, argument validation, approval binding and replay |
+| [Human oversight](skills/agentsec/references/human-oversight.md) | Review evidence, misleading previews, decision authority and approval fatigue |
+| [MCP](skills/agentsec/references/mcp.md) | Transport-specific authorization, token audiences, sessions and tool discovery |
+| [Multi-agent systems](skills/agentsec/references/multi-agent.md) | Delegation scope, message identity, shared state and cancellation |
+| [Execution and output](skills/agentsec/references/execution-and-output.md) | Commands, paths, URLs, sandbox access and active rendering |
+| [Runtime and recovery](skills/agentsec/references/runtime-and-recovery.md) | Budgets, retries, stop propagation, incident evidence and recovery |
+| [Supply chain](skills/agentsec/references/supply-chain.md) | Artifact provenance, model loaders, tool updates and permission changes |
+| [Model lifecycle](skills/agentsec/references/model-lifecycle.md) | Training/feedback poisoning, model promotion, privacy claims and rollback |
 
-For example, filtering citations **after** generation does not prevent unauthorized documents from entering the model request. The review should identify where access is actually enforced and test what reaches that boundary.
-
-Findings must distinguish observed defects from hypotheses and missing evidence. Existing controls matter; an undocumented control is not automatically an absent one.
-
-## Small context, focused guidance
-
-One skill, four workflows and eight topic references. The [entrypoint](skills/ai-security/SKILL.md) directs the agent to read the workflow and topics relevant to the task.
-
-The installed skill contains instructions and reference material. It has no executable hooks, API keys or required hosted service. Development fixtures stay outside the installed directory.
+The [skill entrypoint](skills/agentsec/SKILL.md) selects the workflow and references relevant to the task. Findings distinguish reproduced failures from hypotheses and missing evidence; existing application controls are inspected before reporting a bypass.
 
 ## Sources
 
-Built from OWASP's LLM and agentic security guidance, the MCP specification, research and practitioner publications. The [bibliography](SOURCES.md) lists 32 publications, their editions and contributions, plus protocol references and further reading.
+Built from OWASP publications, the MCP specification, research and practitioner guidance. References cite their sources and distinguish protocol requirements from project recommendations. See [SOURCES.md](SOURCES.md) for editions and attribution.
 
-Recommendations distinguish protocol requirements from project guidance. The skill organizes that material around engineering decisions rather than asking the agent to load the entire bibliography.
+## Contributing
 
-[Contributing](CONTRIBUTING.md) · [MIT license](LICENSE)
+See [CONTRIBUTING.md](CONTRIBUTING.md). Check skill discovery with `npm run skills:list`.
 
+[MIT license](LICENSE)

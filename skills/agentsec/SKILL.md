@@ -1,9 +1,9 @@
 ---
-name: ai-security
+name: agentsec
 description: Review, threat-model, harden, and test LLM applications, RAG, agents, and MCP integrations for security issues involving prompt injection, data isolation, memory, or tool authority.
 ---
 
-# AI Security
+# agentsec
 
 Follow untrusted input to its consequences. Establish what the model can read, disclose, change, execute, remember, delegate and spend, and which independent controls constrain it.
 
@@ -19,6 +19,7 @@ Read one workflow:
 | Design an architecture or threat model | [Design](references/workflow-design.md) |
 | Implement a security fix | [Harden](references/workflow-harden.md) |
 | Prepare or run security tests | [Evaluate](references/workflow-evaluate.md) |
+| Investigate supplied incident traces or compromised state | [Incident investigation](references/workflow-incident.md) |
 
 Preserve authorization already granted. A review does not imply edits, and a test plan does not imply permission to attack a live service. Prepare a local reproduction when execution against the real target is outside scope.
 
@@ -32,9 +33,12 @@ For a broad review, record each surface as present, absent or unknown with evide
 | Private data, retrieval, vectors, caches or provider routing | [Retrieval and data](references/retrieval-and-data.md) |
 | Memory, summaries, checkpoints or compaction | [Memory and compaction](references/memory-and-compaction.md) |
 | Tools, credentials, delegation or approval | [Identity and tools](references/identity-and-tools.md) |
+| Human approval, generated recommendations or decision support | [Human oversight](references/human-oversight.md) |
+| Delegated workers, peer messages or shared agent state | [Multi-agent systems](references/multi-agent.md) |
 | MCP transport, discovery or sessions | [MCP](references/mcp.md), plus identity/tools for authorization |
 | Code, shell, rendering, URLs, browsers or files | [Execution and output](references/execution-and-output.md) |
 | Models, packages, skills, manifests or updates | [Supply chain](references/supply-chain.md) |
+| Training data, feedback, fine-tuning, adapters or model deployment changes | [Model lifecycle](references/model-lifecycle.md) |
 | Budgets, retries, cancellation, logs or recovery | [Runtime and recovery](references/runtime-and-recovery.md) |
 
 A RAG assistant can disclose through rendering; an MCP server can execute code and persist state. Follow observed capabilities rather than stopping at a product label. Ordinary application security remains relevant at every interpreter and resource boundary.
@@ -44,6 +48,8 @@ A RAG assistant can disclose through rendering; an MCP server can execute code a
 Trace: attacker-controlled source → transformation → model-visible state → identity/capability → effect. Inspect existing controls and alternate paths. Refusals, structured output, citations and another model's approval do not establish independent authorization.
 
 Separate observed defects, reproduced behavior, hypotheses and missing evidence. Cite exact code locations or trace events. Severity follows reachable harm, prerequisites, persistence and scope; confidence follows evidence. Missing documentation does not prove a deployed control is absent.
+
+For a confirmed finding, retain the entry point, attacker prerequisite, failing check, observable effect and owning correction. Use the topic control IDs when they help connect a finding to its verification; they are project identifiers, not framework compliance claims. A protected path that rejects the same proposal is useful evidence and should not be reported as vulnerable merely because its interfaces look dangerous.
 
 Prefer removing unnecessary authority/data, enforcing resource-level policy and isolating effects before adding filters or approval friction. Preserve legitimate behavior and adapt controls to the actual system's scale.
 

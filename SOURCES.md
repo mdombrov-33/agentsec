@@ -59,6 +59,12 @@ These are practitioner and vendor publications. Their examples inform engineerin
 - [Agent Skills specification](https://agentskills.io/specification): skill format and supporting resources.
 - [Skills CLI](https://github.com/vercel-labs/skills): discovery and installation.
 
+## Additional architecture guidance
+
+| Publication | Edition | Contribution and limits |
+|---|---|---|
+| [Agentic AI Harnesses: The layer above the model](https://www.cyber.gov.au/publication/agentic-ai-harnesses), Australian Signals Directorate | September 2026 | Harness permissions, context, execution, observability and lifecycle controls. Used as architectural background; project operation-binding and budget/stop test designs are original recommendations. Official publication page checked November 16, 2026. |
+
 ## Further reading
 
 For deeper investigation beyond the bibliography above:
@@ -72,5 +78,7 @@ For deeper investigation beyond the bibliography above:
 ## Attribution and maintenance
 
 Publication identities and available links checked November 10, 2026. Editions are preserved rather than silently treating a newer web page as the same document. Links do not imply clause-level verification or endorsement.
+
+The additional ASD publication and MCP authorization/security routes were checked November 16, 2026. The OWASP v1.0 guide page now links a v2 publication dated November 10, 2026; that new edition has not been reviewed here. Citations to v1.0 describe the edition actually used, not a claim of latest-edition coverage. This update does not revalidate every source in the bibliography.
 
 The skill's workflows, inspection sequences and synthetic tests are original project work. Source publications retain their own licenses; PDFs and third-party datasets are not bundled. When adding guidance, cite the primary source near the recommendation and distinguish its requirements from project recommendations.
